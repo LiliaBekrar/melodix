@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables injectées par useTheme ── */
+:root {
+  --bg-base:       #0f0f0f;
+  --bg-surface:    #1a1a1a;
+  --bg-raised:     #242424;
+  --accent:        #1DB954;
+  --accent-hover:  #1ed760;
+  --accent-glow:   rgba(29, 185, 84, 0.2);
+  --text-primary:  #ffffff;
+  --text-secondary:#a0a0a0;
+  --border:        rgba(255,255,255,0.12);
+  --border-subtle: rgba(255,255,255,0.06);
+  --nav-height:    64px;
+  --player-height: 80px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: "DM Sans", sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-base);
+}
+
+::-webkit-scrollbar        { width: 5px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: rgba(255,255,255,0.15); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+
+::selection { background: var(--accent-glow); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+@layer components {
+  .card {
+    @apply bg-bg-surface border border-white/[0.06] rounded-2xl transition-all duration-300;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .card:hover {
+    @apply border-white/[0.12] -translate-y-0.5;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  }
+  .card-active {
+    @apply border-accent/50;
+    box-shadow: 0 0 0 1px rgba(29,185,84,0.3), 0 4px 16px rgba(0,0,0,0.5);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-display font-semibold 
+           rounded-full transition-all duration-200 cursor-pointer select-none;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-bg-base hover:bg-accent-hover active:scale-95 px-6 py-2.5 text-sm;
+  }
+  .btn-secondary {
+    @apply btn bg-bg-raised border border-white/10 text-white hover:border-white/20 hover:bg-bg-overlay px-5 py-2.5 text-sm;
+  }
+  .btn-ghost {
+    @apply btn text-[--text-secondary] hover:text-white hover:bg-white/5 px-4 py-2 text-sm;
+  }
+  .btn-icon {
+    @apply btn w-9 h-9 bg-bg-raised border border-white/10 hover:border-white/20 hover:bg-bg-overlay text-sm;
+  }
+
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg-raised) 25%, var(--bg-overlay) 50%, var(--bg-raised) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.8s infinite;
+    border-radius: 8px;
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-container {
+    @apply max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply font-display font-bold text-2xl text-white mb-6;
+  }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
